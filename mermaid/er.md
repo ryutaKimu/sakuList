@@ -11,7 +11,6 @@ erDiagram
         string name
         string furigana
         int generation_id
-        int img_id
         int mbti_id
         boolean graduated
     }
@@ -24,7 +23,7 @@ erDiagram
 
     Generation {
         int id
-        int generation_number 
+        int generation
     }
 
     Imgs {
