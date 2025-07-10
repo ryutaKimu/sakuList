@@ -1,40 +1,61 @@
-import { Box, FormControl, InputLabel, MenuItem, Select, type SelectChangeEvent } from "@mui/material"
+import {
+  Box,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  type SelectChangeEvent
+} from "@mui/material"
+import { useEffect, useState } from "react"
+import { fetchAllGeneration } from "../api/members"
 
 type ChangeMember = {
+  generaId: number
   onChangeGeneration: (value: number) => void,
-  onChangeMbti : (value: string) => void
+  onChangeMbti: (value: string) => void
 }
 
-export const SelectBox = ({onChangeGeneration, onChangeMbti}: ChangeMember) => {
+export const SelectBox = ({ generaId, onChangeGeneration, onChangeMbti }: ChangeMember) => {
+  const [generation, setGeneration] = useState<{ id: number, generation: string }[]>([])
 
-  const handleGenerationChange = (event:SelectChangeEvent)=>{
-    const selectedValue = Number(event.target.value)
-    onChangeGeneration(selectedValue)
+  const handleGenerationChange = (event: SelectChangeEvent) => {
+    const selectedValue = Number(event.target.value);
+    onChangeGeneration(selectedValue);
   }
 
-  const handleMbtiChange = (event:SelectChangeEvent) =>{
+  const handleMbtiChange = (event: SelectChangeEvent) => {
     const selectedValue = String(event.target.value)
     onChangeMbti(selectedValue)
   }
 
+  useEffect(() => {
+    fetchAllGeneration().then((response) => {
+      setGeneration(response.data)
+      console.log(response)
+    })
+  }, [])
+
   return (
-    <Box sx={{ display: 'flex', gap: 4, mt: 4, justifyContent: "center"}}>
-      <FormControl sx={{width: "8%"}}>
+    <Box sx={{ display: 'flex', gap: 4, mt: 4, justifyContent: "center" }}>
+      <FormControl sx={{ width: "8%" }}>
         <InputLabel id="generation-label">期生</InputLabel>
         <Select
           labelId="generation-label"
           onChange={handleGenerationChange}
           label="期生"
+          value={`${generaId}`}
         >
-          <MenuItem value="0">すべて</MenuItem>
-          <MenuItem value="2">2期生</MenuItem>
-          <MenuItem value="3">3期生</MenuItem>
-          <MenuItem value="4">4期生</MenuItem>
-          <MenuItem value="100">卒業生</MenuItem>
+          <MenuItem value={0}>すべて</MenuItem>
+          {generation.map((gen) => (
+            <MenuItem key={gen.id} value={gen.id}>
+              {gen.generation}期生
+            </MenuItem>
+          ))}
+          <MenuItem value={100}>卒業生</MenuItem>
         </Select>
       </FormControl>
 
-      <FormControl sx={{width: "8%"}}>
+      <FormControl sx={{ width: "8%" }}>
         <InputLabel id="mbti-label">MBTI</InputLabel>
         <Select
           labelId="mbti-label"

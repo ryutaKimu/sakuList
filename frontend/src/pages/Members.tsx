@@ -24,6 +24,7 @@ const Members = () => {
   }, [menuValue])
 
   useEffect(()=>{
+    if(mbtiValue === "") return;
     fetchMembersMbti(mbtiValue).then(response => setMembers(response.data))
     .catch(error => console.log(error) )
   }, [mbtiValue])
@@ -33,7 +34,7 @@ const Members = () => {
   return (
     <>
       <Title title="メンバーの一覧" />
-      <SelectBox onChangeGeneration = {setMenuValue} onChangeMbti = {setMbtiValue}/>
+      <SelectBox onChangeGeneration = {setMenuValue} onChangeMbti = {setMbtiValue} generaId = {menuValue}/>
       <Grid container spacing={2} justifyContent="center" sx={{marginTop:8}}>
         {members.map((member, index) => (
           <Grid key={index}>
