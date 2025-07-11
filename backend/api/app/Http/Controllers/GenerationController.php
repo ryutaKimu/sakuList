@@ -9,7 +9,7 @@ class GenerationController extends Controller
 {
     public function __construct(private GenerationService $generation) {}
 
-    public function allGeneration()
+    public function getAllGeneration()
     {
         $all = $this->generation->fetchAllGeneration();
         return new JsonResponse($all, 200);

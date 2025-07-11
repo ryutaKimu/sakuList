@@ -7,31 +7,40 @@ import {
   type SelectChangeEvent
 } from "@mui/material"
 import { useEffect, useState } from "react"
-import { fetchAllGeneration } from "../api/members"
+import { fetchAllGeneration, fetchAllMbti } from "../api/members"
 
-type ChangeMember = {
+type Filters = {
   generaId: number
-  onChangeGeneration: (value: number) => void,
-  onChangeMbti: (value: string) => void
+  mbtiCode: string
+}
+type ChangeMember = {
+  filters: Filters
+  onChange: (filters: Filters) => void
 }
 
-export const SelectBox = ({ generaId, onChangeGeneration, onChangeMbti }: ChangeMember) => {
+export const SelectBox = ({ filters, onChange }: ChangeMember) => {
   const [generation, setGeneration] = useState<{ id: number, generation: string }[]>([])
+  const [mbtis, setMbtis] = useState<{id: number, mbti_code: string,mbti_label: string }[]>([])
 
   const handleGenerationChange = (event: SelectChangeEvent) => {
     const selectedValue = Number(event.target.value);
-    onChangeGeneration(selectedValue);
+    onChange({...filters, generaId: selectedValue});
   }
 
   const handleMbtiChange = (event: SelectChangeEvent) => {
     const selectedValue = String(event.target.value)
-    onChangeMbti(selectedValue)
+    onChange({...filters, mbtiCode: selectedValue})
   }
 
   useEffect(() => {
     fetchAllGeneration().then((response) => {
       setGeneration(response.data)
-      console.log(response)
+    })
+  }, [])
+
+  useEffect(()=>{
+    fetchAllMbti().then((response)=>{
+      setMbtis(response.data);
     })
   }, [])
 
@@ -43,7 +52,7 @@ export const SelectBox = ({ generaId, onChangeGeneration, onChangeMbti }: Change
           labelId="generation-label"
           onChange={handleGenerationChange}
           label="期生"
-          value={`${generaId}`}
+          value={`${filters.generaId}`}
         >
           <MenuItem value={0}>すべて</MenuItem>
           {generation.map((gen) => (
@@ -61,11 +70,15 @@ export const SelectBox = ({ generaId, onChangeGeneration, onChangeMbti }: Change
           labelId="mbti-label"
           onChange={handleMbtiChange}
           label="MBTI"
+          value = {`${filters.mbtiCode}`}
+          sx={{ width: 200, height: 50 }} 
         >
           <MenuItem value="すべて">すべて</MenuItem>
-          <MenuItem value="INFP">INFP（仲介者）</MenuItem>
-          <MenuItem value="ESFP">ESFP（エンターテイナー）</MenuItem>
-          <MenuItem value="INTP">INTP（論理学者）</MenuItem>
+          {mbtis.map((mbti)=>(
+            <MenuItem key={mbti.id} value={mbti.mbti_code}>
+              {`${mbti.mbti_code}${mbti.mbti_label}`}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
     </Box>

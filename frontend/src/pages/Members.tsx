@@ -15,26 +15,28 @@ type Members = {
 
 const Members = () => {
   const [members, setMembers] = useState<Members[]>([]);
-  const [menuValue, setMenuValue] = useState(0)
-  const [mbtiValue, setMbtiValue] = useState("");
+  const [filters, setFilters] = useState({
+    generaId: 0,
+    mbtiCode: "すべて",
+  });
 
   useEffect(()=>{
-    fetchMembersGeneration(menuValue).then(response => setMembers(response.data))
+    fetchMembersGeneration(filters.generaId).then(response => setMembers(response.data))
     .catch(error => console.log(error) )
-  }, [menuValue])
+  }, [filters.generaId])
 
   useEffect(()=>{
-    if(mbtiValue === "") return;
-    fetchMembersMbti(mbtiValue).then(response => setMembers(response.data))
+    if(filters.mbtiCode === "") return;
+    fetchMembersMbti(filters.mbtiCode).then(response => setMembers(response.data))
     .catch(error => console.log(error) )
-  }, [mbtiValue])
+  }, [filters.mbtiCode])
 
 
 
   return (
     <>
       <Title title="メンバーの一覧" />
-      <SelectBox onChangeGeneration = {setMenuValue} onChangeMbti = {setMbtiValue} generaId = {menuValue}/>
+      <SelectBox  filters={filters} onChange={setFilters}/>
       <Grid container spacing={2} justifyContent="center" sx={{marginTop:8}}>
         {members.map((member, index) => (
           <Grid key={index}>

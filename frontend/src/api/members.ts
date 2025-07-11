@@ -11,3 +11,7 @@ export const fetchMembersMbti = (mbti: string) => {
 export const fetchAllGeneration = ()=>{
   return apiClient.get(`/generation`)
 }
+
+export const fetchAllMbti = ()=>{
+  return apiClient.get('/mbti')
+}
