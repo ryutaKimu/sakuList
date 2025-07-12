@@ -11,16 +11,19 @@ import {
   CircularProgress,
   Alert,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom'
-import { useAuthStore } from '../store/useAuthStore'; 
 import { adminApi } from '../api'; 
 import axios, { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useAuthStore } from '../store/useAuthStore';
 
-const LoginPage = () => {
+const LoginScreen= () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  
+  const navigate = useNavigate()
+  const login = useAuthStore((state)=> state.login);
 
   const handleLogin = async () => {
     setLoading(true);
@@ -40,8 +43,8 @@ const LoginPage = () => {
         withCredentials: true,
       });
   
-      console.log('ログイン成功', res.data);
-      // ここでログイン後の画面遷移など処理を書く
+      login(res.data.user)
+      navigate("/admin/dashboard");
     } catch (error) {
       const err = error as AxiosError<{ message: string }>;
       console.error('ログイン失敗', err?.response?.data);
@@ -99,4 +102,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default LoginScreen;

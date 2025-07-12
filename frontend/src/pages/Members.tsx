@@ -4,6 +4,7 @@ import { MembersCard } from "../components/MembersCard";
 import { SelectBox } from "../components/SelectBox";
 import { useEffect, useState } from "react";
 import { fetchMembersGeneration, fetchMembersMbti } from "../api/members";
+import Header from "../components/Header";
 
 type Members = {
   id: number,
@@ -35,6 +36,7 @@ const Members = () => {
 
   return (
     <>
+      <Header />
       <Title title="メンバーの一覧" />
       <SelectBox  filters={filters} onChange={setFilters}/>
       <Grid container spacing={2} justifyContent="center" sx={{marginTop:8}}>

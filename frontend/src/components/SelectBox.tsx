@@ -45,14 +45,15 @@ export const SelectBox = ({ filters, onChange }: ChangeMember) => {
   }, [])
 
   return (
-    <Box sx={{ display: 'flex', gap: 4, mt: 4, justifyContent: "center" }}>
-      <FormControl sx={{ width: "8%" }}>
+    <Box sx={{ display: 'flex', gap: 14, mt: 4, justifyContent: "center" }}>
+      <FormControl sx={{ width: "10%" }}>
         <InputLabel id="generation-label">期生</InputLabel>
         <Select
           labelId="generation-label"
           onChange={handleGenerationChange}
           label="期生"
           value={`${filters.generaId}`}
+          sx={{ width: 200, height: 50}} 
         >
           <MenuItem value={0}>すべて</MenuItem>
           {generation.map((gen) => (
@@ -64,14 +65,14 @@ export const SelectBox = ({ filters, onChange }: ChangeMember) => {
         </Select>
       </FormControl>
 
-      <FormControl sx={{ width: "8%" }}>
+      <FormControl sx={{ width: "10%",}}>
         <InputLabel id="mbti-label">MBTI</InputLabel>
         <Select
           labelId="mbti-label"
           onChange={handleMbtiChange}
           label="MBTI"
           value = {`${filters.mbtiCode}`}
-          sx={{ width: 200, height: 50 }} 
+          sx={{ width: 200, height: 50}} 
         >
           <MenuItem value="すべて">すべて</MenuItem>
           {mbtis.map((mbti)=>(
