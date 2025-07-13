@@ -14,10 +14,10 @@ class Member extends Model
         'name',
         'furigana',
         'birthday',
-        'generation',
+        'generation_id',
         'prefecture',
-        'img_path',
-        'mbti',
+        'mbti_id',
+        'introduce',
         'graduated'
     ];
 

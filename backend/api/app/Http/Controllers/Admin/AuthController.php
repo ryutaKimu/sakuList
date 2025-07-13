@@ -11,11 +11,6 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
 
-    public function index()
-    {
-        // ログイン後に表示する画面の実装
-        return new JsonResponse(['message' => "テスト"]);
-    }
 
     public function login(Request $request)
     {
@@ -24,6 +19,7 @@ class AuthController extends Controller
             return new JsonResponse(['message' => "ログイン失敗"], 401);
         }
         $admin = Auth::guard('admin')->user();
+        $request->session()->regenerate();
         return new JsonResponse(['message' => 'ログイン成功', 'user' => new AdminResource($admin)], 200);
     }
 }

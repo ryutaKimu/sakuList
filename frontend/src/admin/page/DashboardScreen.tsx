@@ -1,12 +1,12 @@
-import { Typography, Paper, Box } from "@mui/material";
-import Grid from "@mui/material/Grid";
+import { Typography, Paper, Box, Grid } from "@mui/material";
 import { useAuthStore } from "../store/useAuthStore";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import MemberRegisterForm from "../components/RegisterMemberForm";
 
 export default function DashboardScreen() {
-  const isLoggedIn = useAuthStore((state)=> state.isLoggedIn);
-  const navigate = useNavigate()
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -14,9 +14,7 @@ export default function DashboardScreen() {
     }
   }, [isLoggedIn, navigate]);
 
-  if (!isLoggedIn) {
-    return null;
-  }
+  if (!isLoggedIn) return null;
 
   return (
     <Box sx={{ flexGrow: 1, p: 3 }}>
@@ -24,25 +22,11 @@ export default function DashboardScreen() {
         管理ダッシュボード
       </Typography>
 
-      <Grid container spacing={3}>
-        {/* カード1 */}
-        <Grid >
-          <Paper sx={{ p: 2 }}>
-            <Typography variant="h6">会員数</Typography>
-            <Typography variant="h4">1,234人</Typography>
-          </Paper>
-        </Grid>
-
-        {/* カード2 */}
-        <Grid>
-          <Paper sx={{ p: 2 }}>
-            <Typography variant="h6">本日ログイン数</Typography>
-            <Typography variant="h4">87人</Typography>
-          </Paper>
-        </Grid>
-
-        {/* 他の情報カードを追加できます */}
+      <Grid container spacing={3} mb={4}>
+        {/* カードなど */}
       </Grid>
+
+      <MemberRegisterForm />
     </Box>
   );
 }

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\DashBoardController;
 use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\MbtiController;
 use App\Http\Controllers\MembersController;
@@ -11,3 +13,10 @@ Route::get('/members/generation/{generation}', [MembersController::class, 'searc
 
 Route::get('/generation', [GenerationController::class, 'getAllGeneration']);
 Route::get('/mbti', [MbtiController::class, 'getAllMbti']);
+
+Route::prefix('admin')->group(function () {
+  Route::post('/login', [AuthController::class, 'login'])->name('login');
+  Route::middleware(['web', 'auth:admin'])->group(function () {
+    Route::post('/dashboard', [DashBoardController::class, 'post']);
+  });
+});

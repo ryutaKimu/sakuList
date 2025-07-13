@@ -36,11 +36,9 @@ const LoginScreen= () => {
       });
   
       // ログインリクエスト
-      const res = await adminApi.post('/admin/login', {
+      const res = await adminApi.post('admin/login', {
         email,
         password
-      }, {
-        withCredentials: true,
       });
   
       login(res.data.user)
