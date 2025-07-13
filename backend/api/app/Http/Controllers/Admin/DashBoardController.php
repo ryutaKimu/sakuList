@@ -18,8 +18,8 @@ class DashBoardController extends Controller
         }
         $requests = $request->all();
         $member = Member::create($requests);
-
-        $path = $request->file('image')->store('members', 'public');
+        $fileName = $request->file('image')->getClientOriginalName();
+        $path = $request->file('image')->storeAs('members', $fileName,  'public');
 
         Img::create([
             'member_id' => $member->id,
