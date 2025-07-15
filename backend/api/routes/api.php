@@ -16,7 +16,8 @@ Route::get('/mbti', [MbtiController::class, 'getAllMbti']);
 
 Route::prefix('admin')->group(function () {
   Route::post('/login', [AuthController::class, 'login'])->name('login');
-  Route::middleware(['web', 'auth:admin'])->group(function () {
+  Route::middleware(['auth:admin'])->group(function () {
+    Route::get('/member/detail/{id}', [DashBoardController::class, 'displayDetailMembers']);
     Route::post('/dashboard', [DashBoardController::class, 'post']);
   });
 });

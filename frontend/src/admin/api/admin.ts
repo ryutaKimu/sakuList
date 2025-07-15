@@ -8,3 +8,8 @@ export const postMember = async (formData: FormData) => {
   });
   return response.data;
 };
+
+export const fetchMember = async(id?:string)=>{
+  const response = await adminApi.get(`admin/member/detail/${id}`)
+  return response.data
+}

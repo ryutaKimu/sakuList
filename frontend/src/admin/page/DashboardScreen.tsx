@@ -1,10 +1,30 @@
-import { Typography, Paper, Box, Grid } from "@mui/material";
+import { Typography, Box,  } from "@mui/material";
 import { useAuthStore } from "../store/useAuthStore";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import MemberRegisterForm from "../components/RegisterMemberForm";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import type { Filters, Member } from "../../types/Member";
+import { fetchMembersGeneration, fetchMembersMbti } from "../../api/members";
+import { MembersList } from "../components/MemberList";
 
 export default function DashboardScreen() {
+  const [members, setMembers] = useState<Member[]>([]);
+  const [filters, setFilters] = useState<Filters>({
+    generaId: 0,
+    mbtiCode: "すべて",
+  });
+
+  useEffect(()=>{
+    fetchMembersGeneration(filters.generaId).then(response => setMembers(response.data))
+    .catch(error => console.log(error) )
+  }, [filters.generaId])
+
+  useEffect(()=>{
+    if(filters.mbtiCode === "") return;
+    fetchMembersMbti(filters.mbtiCode).then(response => setMembers(response.data))
+    .catch(error => console.log(error) )
+  }, [filters.mbtiCode])
+
+
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const navigate = useNavigate();
 
@@ -21,12 +41,7 @@ export default function DashboardScreen() {
       <Typography variant="h4" gutterBottom>
         管理ダッシュボード
       </Typography>
-
-      <Grid container spacing={3} mb={4}>
-        {/* カードなど */}
-      </Grid>
-
-      <MemberRegisterForm />
+      <MembersList members={members} filters={filters} onFilterChange={setFilters}/>
     </Box>
   );
 }

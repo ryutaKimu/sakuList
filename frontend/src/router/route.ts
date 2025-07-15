@@ -3,6 +3,7 @@ import Members from "../pages/Members";
 import LoginScreen from "../admin/page/LoginScreen";
 import AdminLayout from "../admin/components/AdminLayout";
 import DashboardScreen from "../admin/page/DashboardScreen";
+import MemberDetail from "../admin/page/MemberDetail";
 
 
 const router = createBrowserRouter([
@@ -21,7 +22,11 @@ const router = createBrowserRouter([
       },
       {
         path: "dashboard",
-        Component: DashboardScreen
+        Component: DashboardScreen,
+      },
+      {
+        path: "dashboard/member/detail/:id",
+        Component: MemberDetail
       }
     ]
   },
