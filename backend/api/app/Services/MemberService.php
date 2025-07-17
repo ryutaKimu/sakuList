@@ -36,6 +36,12 @@ class MemberService
     return $query->get();
   }
 
+  public function searchMember($id)
+  {
+    $member = Member::find($id);
+    return $member;
+  }
+
   /**
    * @param string $mbtiCode
    * @return collection 

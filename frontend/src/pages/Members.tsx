@@ -1,25 +1,14 @@
-import Grid from "@mui/material/Grid";
 import { Title } from "../components/Title";
-<<<<<<< Updated upstream
-import { MembersCard } from "../components/MembersCard";
-import { SelectBox } from "../components/SelectBox";
-=======
->>>>>>> Stashed changes
 import { useEffect, useState } from "react";
 import { fetchMembersGeneration, fetchMembersMbti } from "../api/members";
 import Header from "../components/Header";
+import { MembersList } from "../admin/components/MemberList";
+import type { Filters, Member } from "../types/Member";
 
-type Members = {
-  id: number,
-  name: string,
-  furigana: string,
-  img_url: string,
-  graduated: boolean
-}
 
 const Members = () => {
-  const [members, setMembers] = useState<Members[]>([]);
-  const [filters, setFilters] = useState({
+  const [members, setMembers] = useState<Member[]>([]);
+  const [filters, setFilters] = useState<Filters>({
     generaId: 0,
     mbtiCode: "すべて",
   });
@@ -41,19 +30,7 @@ const Members = () => {
     <>
       <Header />
       <Title title="メンバーの一覧" />
-      <SelectBox  filters={filters} onChange={setFilters}/>
-      <Grid container spacing={2} justifyContent="center" sx={{marginTop:8}}>
-        {members.map((member, index) => (
-          <Grid key={index}>
-            <MembersCard
-              name={member.name}
-              furigana={member.furigana}
-              imgUrl={member.img_url}
-              graduated={member.graduated}
-            />
-          </Grid>
-        ))}
-      </Grid>
+      <MembersList members={members} filters={filters} onFilterChange={setFilters}/>
     </>
   );
 };
