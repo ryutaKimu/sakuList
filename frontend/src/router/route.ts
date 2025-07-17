@@ -4,12 +4,18 @@ import LoginScreen from "../admin/page/LoginScreen";
 import AdminLayout from "../admin/components/AdminLayout";
 import DashboardScreen from "../admin/page/DashboardScreen";
 import MemberDetail from "../admin/page/MemberDetail";
+import MemberDetailScreen from "../pages/MemberDetailScreem";
 
 
 const router = createBrowserRouter([
   {
     path: "/", 
     Component: Members,   
+  },
+
+  {
+    path: "member/detail/:id",
+    Component : MemberDetailScreen
   },
   {
     path: "admin",

@@ -60,15 +60,4 @@ class MemberService
 
     return $query->get();
   }
-
-  /**
-   * @param int $id
-   * @return Model $member
-   */
-
-  public function displayMemberDetail(int $id)
-  {
-    $member = Member::find($id);
-    return $member;
-  }
 }

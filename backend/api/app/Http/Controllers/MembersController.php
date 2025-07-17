@@ -30,8 +30,8 @@ class MembersController extends Controller
 
     public function displayMemberDetail(int $id): JsonResponse
     {
-        $member = $this->memberService->displayMemberDetail($id);
-        $formatResponseData = MemberResource::collection($member);
+        $member = $this->memberService->searchMember($id);
+        $formatResponseData = new MemberResource($member);
         return new JsonResponse($formatResponseData, 200, [], JSON_UNESCAPED_UNICODE);
     }
 

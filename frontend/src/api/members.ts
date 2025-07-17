@@ -8,6 +8,10 @@ export const fetchMembersMbti = (mbti: string) => {
   return apiClient.get(`/members/mbti/${mbti}`)
 }
 
+export const fetchMember = (id:string) => {
+  return apiClient.get(`/member/${id}`)
+}
+
 export const fetchAllGeneration = ()=>{
   return apiClient.get(`/generation`)
 }
