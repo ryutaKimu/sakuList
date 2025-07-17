@@ -1,7 +1,10 @@
 import Grid from "@mui/material/Grid";
 import { Title } from "../components/Title";
+<<<<<<< Updated upstream
 import { MembersCard } from "../components/MembersCard";
 import { SelectBox } from "../components/SelectBox";
+=======
+>>>>>>> Stashed changes
 import { useEffect, useState } from "react";
 import { fetchMembersGeneration, fetchMembersMbti } from "../api/members";
 import Header from "../components/Header";

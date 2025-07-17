@@ -18,5 +18,6 @@ Route::prefix('admin')->group(function () {
   Route::post('/login', [AuthController::class, 'login'])->name('login');
   Route::middleware(['web', 'auth:admin'])->group(function () {
     Route::post('/dashboard', [DashBoardController::class, 'post']);
+    Route::put('/dashboard/member/{id}', [DashBoardController::class, 'updateMemberInfo']);
   });
 });

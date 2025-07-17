@@ -23,7 +23,8 @@ class MemberResource extends JsonResource
             'img_url' => $this->imgs->map(fn($img) => asset($img->img_path)),
             'mbti_code' => $this->mbti?->mbti_code,
             'mbti_label' => $this->mbti?->mbti_label,
-            'graduated' => $this->graduated
+            'graduated' => $this->graduated,
+            'introduce' => $this->introduce
         ];
 
         return $memberData;
