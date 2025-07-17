@@ -31,8 +31,6 @@ class MemberService
         ->where('generation_id', $generationId)
         ->orderBy('furigana', 'asc');
     }
-
-
     return $query->get();
   }
 
