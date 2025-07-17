@@ -43,4 +43,17 @@ class DashBoardController extends Controller
 
         return new JsonResponse(['message' => '登録成功']);
     }
+
+    public function updateMemberInfo($id, Request $request)
+    {
+        $member = Member::findOrFail($id);
+        $info = $request->all();
+        $member->fill($info);
+        $member->save();
+
+        return response()->json([
+            'message' => 'Member updated successfully',
+            'member' => $member,
+        ]);
+    }
 }

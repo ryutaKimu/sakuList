@@ -11,3 +11,16 @@ export type Filters = {
   generaId: number;
   mbtiCode: string;
 };
+
+export type UpdateMember = {
+    id: number | undefined;
+    name: string;
+    furigana: string;
+    birthday: string | undefined;
+    prefecture: string;
+    img_url: string | undefined;
+    introduce: string;
+    graduated: boolean;
+    generation_id: string | null;
+    mbti_id: number | null;
+};

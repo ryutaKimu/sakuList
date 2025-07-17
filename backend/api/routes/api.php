@@ -19,5 +19,6 @@ Route::prefix('admin')->group(function () {
   Route::middleware(['auth:admin'])->group(function () {
     Route::get('/member/detail/{id}', [DashBoardController::class, 'displayDetailMembers']);
     Route::post('/dashboard', [DashBoardController::class, 'post']);
+    Route::put('/dashboard/member/{id}', [DashBoardController::class, 'updateMemberInfo']);
   });
 });

@@ -1,5 +1,4 @@
 import { Title } from "../components/Title";
-import { SelectBox } from "../components/SelectBox";
 import { useEffect, useState } from "react";
 import { fetchMembersGeneration, fetchMembersMbti } from "../api/members";
 import Header from "../components/Header";
